@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      font-size: 18px; /* Increase font size for body */
+    }
+    .container {
+      width: 90%; /* Adjust width for smaller screens */
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .order-summary {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+    }
+    .order-summary h3 {
+      margin-top: 0;
+      font-size: 24px; /* Increase font size for order summary title */
+      color: #333;
+    }
+    .order-summary p {
+      color: #666;
+      margin-bottom: 10px; /* Increase margin bottom for paragraphs */
+      font-size: 20px; /* Increase font size for paragraphs */
+    }
+    .payment-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px 40px; /* Increase padding for button */
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 24px; /* Increase font size for button */
+      margin: 20px 0; /* Increase margin for button */
+      cursor: pointer;
+      border-radius: 12px; /* Increase border radius for button */
+      border: none;
+    }
+    .payment-button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div id="google_translate_element"></div>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {pageLanguage: 'en',includedLanguages: 'hi,mr,en,fr',},
+        
+        'google_translate_element'
+      );
+    }
+    var selectElement = document.querySelector('#google_translate_element select');
+        selectElement.value = 'hi,mr,en,fr';
+  </script>
+
+  <script type="text/javascript"
+      src=
+"https://translate.google.com/translate_a/element.js?
+cb=googleTranslateElementInit">
+  </script>
+
+<div class="container">
+  <h2>Payment Details</h2>
+  <div class="order-summary">
+    <h3>Order Summary</h3>
+    <p><strong>Items:</strong> <span id="items"></span></p>
+    <p><strong>Total:</strong> <span id="total"></span></p>
+    <p><strong>Delivery Address:</strong> <span id="address"></span></p>
+    <p><strong>Payment Method:</strong> <span id="paymentMethod"></span></p>
+  </div>
+  <form action="payment_confirmation.html" method="post">
+    <!-- You can add payment gateway integration here -->
+    <input type="submit" value="Confirm Payment" class="payment-button">
+  </form>
+</div>
+
+<script>
+  // Function to get URL parameters
+  function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+  };
+
+  // Extract attributes from URL
+  var address = getUrlParameter('address');
+  var paymentMethod = getUrlParameter('paymentMethod');
+  var items = getUrlParameter('items');
+  var totalPrice = getUrlParameter('totalPrice');
+
+  // Populate HTML elements
+  document.getElementById("items").textContent = items;
+  document.getElementById("total").textContent = "₹" + totalPrice;
+  document.getElementById("address").textContent = address;
+  document.getElementById("paymentMethod").textContent = paymentMethod;
+</script>
+
+</body>
+</html>

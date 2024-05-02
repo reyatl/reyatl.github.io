@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAHIKALA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #232f3e;
+      color: #ffffff;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 24px; /* Increase font size for header */
+    }
+    nav {
+      background-color: #333;
+      color: #ffffff;
+      padding: 20px 0;
+      text-align: center;
+      font-size: 18px; /* Increase font size for navigation */
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      margin: 0 20px;
+    }
+    .container {
+      width: 90%; /* Adjust width for smaller screens */
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .product {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .product h2 {
+      font-size: 20px; /* Increase font size for product titles */
+    }
+    .product p {
+      font-size: 16px; /* Increase font size for product descriptions */
+    }
+    .product .price {
+      font-size: 24px; /* Increase font size for product prices */
+    }
+    .product button {
+      padding: 12px 24px; /* Increase button padding */
+    }
+    .cart-item {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+    }
+    .cart-item h3 {
+      font-size: 20px; /* Increase font size for cart item titles */
+    }
+    .cart-item p {
+      font-size: 16px; /* Increase font size for cart item details */
+    }
+    .cart-item button {
+      padding: 8px 16px; /* Increase button padding */
+    }
+    .order-box {
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+    }
+    .order-box h3 {
+      font-size: 24px; /* Increase font size for order titles */
+    }
+    .order-box p {
+      font-size: 16px; /* Increase font size for order details */
+    }
+    .login-container {
+      text-align: center;
+      margin-top: 50px;
+    }
+    .login-container input[type="text"],
+    .login-container input[type="password"] {
+      padding: 16px;
+      margin: 16px;
+      width: 80%;
+      font-size: 18px; /* Increase font size for input fields */
+    }
+    .login-container button {
+      padding: 16px 32px; /* Increase button padding */
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>MAHIKALA</h1>
+</header>
+
+<nav>
+  <a href="#" onclick="showPage('products')">Products</a>
+  <a href="#" onclick="showPage('cart')">Cart</a>
+  <a href="#" onclick="showPage('orders')">Orders</a>
+</nav>
+
+<div class="container" id="products" style="display: none;">
+  <h2>Products</h2>
+  <div class="product">
+    <img src="pot.jpg" alt="Earthen Pot">
+    <h2>Earthen Pot</h2>
+    <p class="price">Price: ₹380</p>
+    <p class="description">Earthen Pot which helps to keep your water chill in summer, has several health benefits.</p>
+    <button onclick="addToCart('Earthen Pot')">Add to Cart</button>
+  </div>
+  <div class="product">
+    <img src="bag.jpg" alt="Hand Bag">
+    <h2>Hand Bag</h2>
+    <p class="price">Price: ₹325</p>
+    <p class="description">Bag made by women for women, which goes with almost every attire.</p>
+    <button onclick="addToCart('Hand Bag')">Add to Cart</button>
+	
+  </div>
+  <!-- Add more products here -->
+  <!-- Add Go to Cart button outside individual product containers -->
+  <button onclick="goToCart()">Go to Cart</button>
+</div>
+<div class="container" id="cart" style="display: none;">
+  <h2>Cart</h2>
+  <ul id="cartItems"></ul>
+  <form id="checkoutForm" action="payment.html" method="post">
+    <h3>Enter Your Address</h3>
+    <textarea id="address" name="address" rows="4" cols="50" placeholder="Enter your address"></textarea>
+    <h3>Choose Payment Method</h3>
+    <select id="paymentMethod" name="paymentMethod">
+      <option value="FibReyTM">FibReyTM</option>
+      <option value="Netbanking">Netbanking</option>
+      <option value="CashOnDelivery">Cash on Delivery</option>
+    </select>
+    <br><br>
+    <button type="button" onclick="redirectToPayment()">Checkout</button>
+  </form>
+</div>
+
+<div class="container" id="orders" style="display: none;">
+  <h2>Orders</h2>
+  <div id="orderList"></div>
+</div>
+
+<div class="container login-container">
+  <h2>Login</h2>
+  <input type="text" id="email" placeholder="Email/Mobile">
+  <br>
+  <input type="password" id="password" placeholder="Password">
+  <br>
+  <button onclick="login()">Login</button>
+</div>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {pageLanguage: 'en',includedLanguages: 'hi,mr,en,fr',},
+      
+      'google_translate_element'
+    );
+  }
+  var selectElement = document.querySelector('#google_translate_element select');
+  selectElement.value = 'hi,mr,en,fr';
+</script>
+
+<script type="text/javascript"
+        src=
+"https://translate.google.com/translate_a/element.js?
+cb=googleTranslateElementInit">
+</script>
+
+<script>
+  var products = [
+    { name: "Earthen Pot", price: 380, description: "Earthen Pot which helps to keep your water chill in summer, has several health benefits.", image: "pot.jpg" },
+    { name: "Hand Bag", price: 325, description: "Bag made by women for women, which goes with almost every attire.", image: "bag.jpg" }
+    // Add more products here
+  ];
+
+  var cartItems = [];
+  var orders = JSON.parse(localStorage.getItem("orders")) || [];
+  var orderCount = orders.length;
+
+  function addToCart(productName) {
+    var product = products.find(p => p.name === productName);
+    if (!product) return;
+    cartItems.push(product);
+    updateCart();
+  }
+  function goToCart() {
+  // Redirect to the cart page
+  showPage("cart");
+  }
+
+  function removeFromCart(index) {
+    cartItems.splice(index, 1);
+    updateCart();
+  }
+
+  function updateCart() {
+    var cartList = document.getElementById("cartItems");
+    cartList.innerHTML = "";
+    cartItems.forEach(function(item, index) {
+      var li = document.createElement("li");
+      li.className = "cart-item";
+      var h3 = document.createElement("h3");
+      h3.textContent = item.name;
+      li.appendChild(h3);
+      var img = document.createElement("img");
+      img.src = item.image;
+      li.appendChild(img);
+      var price = document.createElement("p");
+      price.className = "price";
+      price.textContent = "Price: ₹" + item.price.toLocaleString('en-IN');
+      li.appendChild(price);
+      var description = document.createElement("p");
+      description.className = "description";
+      description.textContent = item.description;
+      li.appendChild(description);
+      var removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.onclick = function() {
+        removeFromCart(index);
+      };
+      li.appendChild(removeBtn);
+      cartList.appendChild(li);
+    });
+  }
+
+  function showPage(pageId) {
+    var pages = document.getElementsByClassName("container");
+    for (var i = 0; i < pages.length; i++) {
+      pages[i].style.display = "none";
+    }
+    document.getElementById(pageId).style.display = "block";
+    if (pageId === "cart") {
+      updateCart();
+    } else if (pageId === "orders") {
+      displayOrders();
+    }
+  }
+
+  function displayOrders() {
+    var orderList = document.getElementById("orderList");
+    orderList.innerHTML = "";
+    orders.forEach(function(order) {
+      var orderBox = document.createElement("div");
+      orderBox.className = "order-box";
+      var h3 = document.createElement("h3");
+      h3.textContent = "Order " + order.id;
+      orderBox.appendChild(h3);
+      var orderInfo = document.createElement("p");
+      orderInfo.textContent = "Date: " + order.date + " - Delivery: " + order.deliveryDate;
+      orderBox.appendChild(orderInfo);
+      var address = document.createElement("p");
+      address.textContent = "Address: " + order.address;
+      orderBox.appendChild(address);
+      var paymentMethod = document.createElement("p");
+      paymentMethod.textContent = "Payment Method: " + order.paymentMethod;
+      orderBox.appendChild(paymentMethod);
+      var items = document.createElement("p");
+      items.textContent = "Items: " + order.items.join(", ");
+      orderBox.appendChild(items);
+      orderList.appendChild(orderBox);
+    });
+  }
+
+  function formatDate(date) {
+    var day = date.getDate();
+    var month = date.getMonth() + 1;
+    var year = date.getFullYear();
+    return day + "/" + month + "/" + year;
+  }
+
+  function redirectToPayment() {
+  var address = document.getElementById("address").value;
+  var paymentMethod = document.getElementById("paymentMethod").value;
+  var items = cartItems.map(item => item.name).join(", ");
+  var totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
+  
+  // Save the order
+  var order = {
+    id: orderCount + 1,
+    date: formatDate(new Date()),
+    deliveryDate: formatDate(new Date()),
+    address: address,
+    paymentMethod: paymentMethod,
+    items: items.split(","),
+    totalPrice: totalPrice
+  };
+  saveOrder(order);
+
+  // Redirect to payment page
+  window.location.href = "payment.html?address=" + encodeURIComponent(address) + "&paymentMethod=" + encodeURIComponent(paymentMethod) + "&items=" + encodeURIComponent(items) + "&totalPrice=" + encodeURIComponent(totalPrice);
+}
+
+  function login() {
+    // This is a fake login function
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    // You can add your authentication logic here
+    // For demonstration purposes, we'll simply redirect to the products page
+    showPage("products");
+  }
+
+  function saveOrder(order) {
+    orders.push(order);
+    localStorage.setItem("orders", JSON.stringify(orders));
+  }
+
+</script>
+
+</body>
+</html>

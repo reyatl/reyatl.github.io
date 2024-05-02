@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment Confirmation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      font-size: 18px; /* Increase font size for body */
+    }
+    .container {
+      width: 90%; /* Adjust width for smaller screens */
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .confirmation-message {
+      border: 1px solid #ccc;
+      padding: 20px;
+      background-color: #f9f9f9;
+      font-size: 20px; /* Increase font size for confirmation message */
+      margin-bottom: 20px; /* Increase margin bottom for container */
+    }
+    .confirmation-message h2 {
+      margin-top: 0;
+      font-size: 24px; /* Increase font size for confirmation message title */
+      color: #333;
+    }
+    .confirmation-message p {
+      color: #666;
+      margin-bottom: 10px; /* Increase margin bottom for paragraphs */
+    }
+    .home-link {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px 40px; /* Increase padding for button */
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 24px; /* Increase font size for button */
+      margin-top: 20px; /* Increase margin top for button */
+      cursor: pointer;
+      border-radius: 12px; /* Increase border radius for button */
+      border: none;
+    }
+    .home-link:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div id="google_translate_element"></div>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        {pageLanguage: 'en',includedLanguages: 'hi,mr,en,fr',},
+        
+        'google_translate_element'
+      );
+    }
+    var selectElement = document.querySelector('#google_translate_element select');
+        selectElement.value = 'hi,mr,en,fr';
+  </script>
+
+  <script type="text/javascript"
+      src=
+"https://translate.google.com/translate_a/element.js?
+cb=googleTranslateElementInit">
+  </script>
+<div class="container">
+  <h2>Payment Confirmation</h2>
+  <div class="confirmation-message">
+    <p>Your payment has been successfully processed.</p>
+    <p>A confirmation email has been sent to your email address.</p>
+    <p>Thank you for your purchase!</p>
+  </div>
+  <a href="index.html" class="home-link">Back to Home</a>
+</div>
+
+</body>
+</html>
